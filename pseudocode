@@ -1,12 +1,5 @@
 apps:
-	labnb:
-		model: gel
-			field: imgfile
-			field: key (charfield, commasep, semicolonsep for multiple rows, allow empty wells; use re.split(<sep>,<str>)
-			field: nLanesWide (will help align key)(use max and min value validators)
-			field: date (datefield)
-			field: strips(manytomany, allow empty)
-			field: tubes(manytomany, allow empty)
+	labinv:
 		model: tube (https://django-polymorphic.readthedocs.org/en/latest/)
 			field: name
 			field: dateMade (datefield)
@@ -23,6 +16,8 @@ apps:
 			field: conc(decimalfield)
 		model: strip(inherits tube)
 			field: key (charfield commasep)
+		
+	data:
 		model: injection experiment
 			field: gRNA(manytomany)
 			field: gRNAvol(decimalfield,uL)
@@ -32,3 +27,13 @@ apps:
 			field: totalvol(decimalfield,uL)
 			field: inxvol(decimalfield,nL)
 			field: note
+			field: date(datefield)
+		model: gel
+			field: title
+			field: imgfile
+			field: key (charfield, commasep, semicolonsep for multiple rows, allow empty wells; use re.split(<sep>,<str>)
+			field: nLanesWide (will help align key)(use max and min value validators)
+			field: date (datefield)
+			field: strips(manytomany, allow empty)
+			field: tubes(manytomany, allow empty)
+			field: note(textfield)
