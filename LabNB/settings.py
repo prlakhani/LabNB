@@ -30,13 +30,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'polymorphic',                  # allows better model inheritance
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dh5bp'
+    'dh5bp'                         # allows html5 boilerplate
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,7 +70,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'US/Pacific'
 
 USE_I18N = True
 
@@ -82,3 +83,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# This is only useful for templates outside of any apps, I think?
+TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates')]

@@ -1,0 +1,34 @@
+apps:
+	labnb:
+		model: gel
+			field: imgfile
+			field: key (charfield, commasep, semicolonsep for multiple rows, allow empty wells; use re.split(<sep>,<str>)
+			field: nLanesWide (will help align key)(use max and min value validators)
+			field: date (datefield)
+			field: strips(manytomany, allow empty)
+			field: tubes(manytomany, allow empty)
+		model: tube (https://django-polymorphic.readthedocs.org/en/latest/)
+			field: name
+			field: dateMade (datefield)
+			field: exists (booleanfield)
+			field: note (textfield, location, etc)
+		model: gRNA(inherits tube)
+			field: geneTarget(charField)
+			field: targetSeq(charField)
+			field: promoter(charField with 2 choices)
+			field: conc(decimalfield)
+		model: cas9(inherits tube)
+			field: type(charfield Choices RNA/protein)
+			field: datealiquoted(datefield)
+			field: conc(decimalfield)
+		model: strip(inherits tube)
+			field: key (charfield commasep)
+		model: injection experiment
+			field: gRNA(manytomany)
+			field: gRNAvol(decimalfield,uL)
+			field: cas9(fkey)
+			field: cas9vol(decimalfield,uL)
+			field: othertubes(manytomany)
+			field: totalvol(decimalfield,uL)
+			field: inxvol(decimalfield,nL)
+			field: note
