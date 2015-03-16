@@ -26,9 +26,13 @@ class uInjection(Experiment):
 class survivalExp(Experiment):
 	inx=models.ForeignKey(uInjection)
 	initPop=models.IntegerField('Initial population')
-	dailyDeathsExp=models.CommaSeparatedIntegerField('Experimental group deaths, comma separated',max_length=100)
-	dailyDeathsCtrl=models.CommaSeparatedIntegerField('Control group deaths, comma separated',max_length=100)
-	ctrlType=models.CharField(max_length=20)
+	dailyDeathsExp=models.CommaSeparatedIntegerField('Experimental group deaths, comma separated',
+		default='0,0,0,0,0,0,0,0',max_length=100)
+	expFinalSurviving=models.IntegerField('Experimental larvae surviving at 7 dpf')
+	dailyDeathsCtrl=models.CommaSeparatedIntegerField('Control group deaths, comma separated',
+		default='0,0,0,0,0,0,0,0',max_length=100)
+	FinalSurviving=models.IntegerField('Control larvae surviving at 7 dpf')
+	ctrlType=models.CharField('uninjected or untreated, sham or cas9 injected, etc.',max_length=20)
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
 		return dateString+'_inxSurvival_'+self.uInjection.gRNA

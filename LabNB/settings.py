@@ -99,6 +99,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')     # path on FS to media files
 
 # This is only useful for templates outside of any apps, I think?
 TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates','LabNB')]
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
+)
 
 # login
 LOGIN_URL = 'accounts/login/'

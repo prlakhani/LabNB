@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Notebook - LabInv - uInjection Experiments{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date</th>
+					<th>gRNA</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for uInx in uInjections %}
+					<tr>
+						<td>{{ uInx.shortName }}</td>
+						<td>{{ uInx.date }}</td>
+						<td>{{ uInx.gRNA }}</td>
+					</tr>
+					
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock content %}
