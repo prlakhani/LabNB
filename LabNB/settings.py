@@ -38,6 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'dh5bp'                         # allows html5 boilerplate
+    'labinv',
+    'data',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,8 +94,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'                           # path on webserver, somehow? relative? must end in /
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')     # path on FS to media files
 
 # This is only useful for templates outside of any apps, I think?
 TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates','LabNB')]

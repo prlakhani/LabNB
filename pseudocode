@@ -1,7 +1,7 @@
 apps:
 	labinv:
 		model: tube (https://django-polymorphic.readthedocs.org/en/latest/)
-			field: name
+			field: shortName
 			field: dateMade (datefield)
 			field: exists (booleanfield)
 			field: note (textfield, location, etc)
@@ -12,10 +12,9 @@ apps:
 			field: conc(decimalfield)
 		model: cas9(inherits tube)
 			field: type(charfield Choices RNA/protein)
-			field: datealiquoted(datefield)
 			field: conc(decimalfield)
 		model: strip(inherits tube)
-			field: key (charfield commasep)
+			field: key (textfield commasep)
 		
 	data:
 		model: experiment
@@ -31,7 +30,6 @@ apps:
 			field: othertubes(manytomany)
 			field: totalvol(decimalfield,uL)
 			field: inxvol(decimalfield,nL)
-			field: note
 		model: imgData
 			field: title
 			field: imgfile
@@ -39,7 +37,4 @@ apps:
 			field: note
 		model: gel (inherits imgdata)
 			field: key (charfield, commasep, semicolonsep for multiple rows, allow empty wells; use re.split(<sep>,<str>)
-			field: nLanesWide (will help align key)(use max and min value validators)
-			field: strips(manytomany, allow empty)
 			field: tubes(manytomany, allow empty)
-			field: note(textfield)
