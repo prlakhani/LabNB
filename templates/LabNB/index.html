@@ -1,5 +1,32 @@
-{% extends 'dh5bp/base.html' %}
-{% load staticfiles %}
-{% block title %}YOUR TITLE HERE{% endblock %}
-{% block content %}YOUR PAGE MARKUP HERE{% endblock %}
-{# This template is blank #}
+{% extends "base.html" %}
+
+{% block title %}Lab Notebook Home{% endblock title %}
+
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Hi Parth!</h1>
+            <p>This is your lab notebook. Make sure you use it regularly!</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Lab Inventory</h2>
+                <p>Go here to add tubes or aliquots of various sorts, and PCR strips.</p>
+                <p><a class="btn btn-default" href="/labinv" role="button">Go &raquo;</a></p>
+            </div>
+            <div class="col-md-6">
+                <h2>Data</h2>
+                <p>Go here to add images or other raw data, as well as information about experiments.</p>
+                <p><a class="btn btn-default" href="data" role="button">Go &raquo;</a></p>
+            </div>
+        </div>
+        {{ block.super }}
+    </div>
+    
+{% endblock content %}

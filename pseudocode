@@ -18,6 +18,11 @@ apps:
 			field: key (charfield commasep)
 		
 	data:
+		model: experiment
+			field: shortName
+			field: date
+			field: note
+
 		model: injection experiment
 			field: gRNA(manytomany)
 			field: gRNAvol(decimalfield,uL)
@@ -27,13 +32,14 @@ apps:
 			field: totalvol(decimalfield,uL)
 			field: inxvol(decimalfield,nL)
 			field: note
-			field: date(datefield)
-		model: gel
+		model: imgData
 			field: title
 			field: imgfile
+			field: date
+			field: note
+		model: gel (inherits imgdata)
 			field: key (charfield, commasep, semicolonsep for multiple rows, allow empty wells; use re.split(<sep>,<str>)
 			field: nLanesWide (will help align key)(use max and min value validators)
-			field: date (datefield)
 			field: strips(manytomany, allow empty)
 			field: tubes(manytomany, allow empty)
 			field: note(textfield)

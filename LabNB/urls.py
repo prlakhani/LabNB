@@ -1,14 +1,16 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.conf import settings
+from LabNB import views         # This lets us use the custom error handlers, as well as an index view with context, if desired.
 
-# Added for Django HTML5 Boilerplate
-from dh5bp.urls import urlpatterns as dh5bp_urls
+# These handlers override the default error page provided by Django.
+# Django looks for these var names specifically in the urlconf.
 
-handler404 = 'dh5bp.views.page_not_found'
-handler500 = 'dh5bp.views.server_error'
+handler404 = 'LabNB.views.page_not_found'
+handler500 = 'LabNB.views.server_error'
 
-# Added for simple templates like homepage
-from django.views.generic import TemplateView
+# Added for simple templates like homepage, or icons
+from django.views.generic import TemplateView, RedirectView
 
 # URLs
 
@@ -16,12 +18,28 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'LabNB.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    
+
     # http://stackoverflow.com/questions/1940528/django-index-page-best-most-common-practice
-    url(r'^$', TemplateView.as_view(template_name="LabNB/index.html")),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    url(r'^$', views.index, name='index'),
+    # url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^accounts/login/', 'django.contrib.auth.views.login'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^labinv/', include('labinv.urls', namespace="labinv")),
+    url(r'^data/', include('data.urls', namespace="data")),
+    url(r'^apple-touch-icon\.png$', RedirectView.as_view(
+    	url='%simg/apple-touch-icon.png' % settings.STATIC_URL)),
+	url(r'^crossdomain\.xml$', TemplateView.as_view(
+		template_name='crossdomain.xml')),
+	url(r'^favicon\.ico$', RedirectView.as_view(
+		url='%simg/favicon.ico' % settings.STATIC_URL)),
+	url(r'^humans\.txt', TemplateView.as_view(
+		template_name='humans.txt')),
+	url(r'^robots\.txt', TemplateView.as_view(
+		template_name='robots.txt'))
 )
 
-# some more dh5bp defaults (favicon.ico, apple-touch-icon.png, humans.txt, robots.txt, and crossdomain.xml)
-urlpatterns += dh5bp_urls
+urlpatterns += patterns('', (
+        r'^static/(?P<path>.*)$',
+        'django.views.static.serve',
+        {'document_root': settings.STATIC_ROOT}
+))

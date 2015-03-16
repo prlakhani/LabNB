@@ -17,14 +17,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@9l1k#bvfu*-t@(@&*w64yonj*f4)*hk0!+5ip5k%9)@+2+%se'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '127.0.0.1:8000', 'localhost:8000',]
 
 
 # Application definition
@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dh5bp'                         # allows html5 boilerplate
+    # 'dh5bp'                         # allows html5 boilerplate
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,6 +83,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')   # stuff will be moved here upon collectstatic. 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "rootstatic"),       # collectstatic should look for stuff here.
+    )                                           # also, root site can find staticfiles here, because of staticfiles finders?
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # This is only useful for templates outside of any apps, I think?
-TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates')]
+TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates','LabNB')]
+
+# login
+LOGIN_URL = 'accounts/login/'
