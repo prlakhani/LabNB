@@ -12,7 +12,7 @@ class Experiment(PolymorphicModel):
 		return dateString+'_'+self.shortName
 
 class uInjection(Experiment):
-	gRNA=models.ManyToManyField('labinv.gRNA',related_name='gRNA')
+	gRNA=models.ForeignKey('labinv.gRNA',related_name='gRNA')
 	gRNAvolume=models.DecimalField('volume in uL',max_digits=3,decimal_places=2,default=1.0)
 	cas9=models.ForeignKey('labinv.cas9',related_name='cas9')
 	cas9volume=models.DecimalField('volume in uL',max_digits=3,decimal_places=2,default=1.0)
@@ -22,23 +22,30 @@ class uInjection(Experiment):
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
 		return dateString+'_'+self.gRNA
+	def get_absolute_url(self):
+		return reverse('data.views.uInx-detail',args=[str(self.id)])
 
 class survivalExp(Experiment):
 	inx=models.ForeignKey(uInjection)
-	initPop=models.IntegerField('Initial population')
+	nInx=models.IntegerField('Number injected',default=100)
 	dailyDeathsExp=models.CommaSeparatedIntegerField('Experimental group deaths, comma separated',
 		default='0,0,0,0,0,0,0,0',max_length=100)
-	expFinalSurviving=models.IntegerField('Experimental larvae surviving at 7 dpf')
+	expFinalSurviving=models.IntegerField('Experimental larvae surviving at 7 dpf',default=0)
+	nCtrl=models.IntegerField('Number of control embryos',default=300)
 	dailyDeathsCtrl=models.CommaSeparatedIntegerField('Control group deaths, comma separated',
 		default='0,0,0,0,0,0,0,0',max_length=100)
-	FinalSurviving=models.IntegerField('Control larvae surviving at 7 dpf')
+	ctrlFinalSurviving=models.IntegerField('Control larvae surviving at 7 dpf',default=0)
 	ctrlType=models.CharField('uninjected or untreated, sham or cas9 injected, etc.',max_length=20)
-	def __str__(self):
+	def __str__(self):	
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
-		return dateString+'_inxSurvival_'+self.uInjection.gRNA
+		return dateString+'_inxSurvival_'+self.inx.gRNA
+	def get_absolute_url(self):
+		return reverse('data.views.survExp-detail',args=[str(self.id)])
 
 class miscExp(Experiment):
 	pass
+	def get_absolute_url(self):
+		return reverse('data.views.miscExp-detail',args=[str(self.id)])
 
 class imgData(PolymorphicModel):
 	shortName=models.CharField(max_length=50)
@@ -59,6 +66,9 @@ class imgData(PolymorphicModel):
 class gel(imgData):
 	key=models.TextField('Comma-separated by lane; semicolon separated for multiple rows')	# add only one semicolon validator
 	tubes=models.ManyToManyField('labinv.Tube',blank=True,null=True)
+	def get_absolute_url(self):
+		return reverse('data.views.gel-detail',args=[str(self.id)])
 
 class miscImg(imgData):
-	pass
+	def get_absolute_url(self):
+		return reverse('data.views.miscImg-detail',args=[str(self.id)])

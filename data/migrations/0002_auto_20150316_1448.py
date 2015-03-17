@@ -16,19 +16,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='uinjection',
             name='cas9',
-            field=models.ForeignKey(related_name='cas9', to='labinv.cas9'),
+            field=models.ForeignKey(to='labinv.cas9', related_name='cas9'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='uinjection',
             name='gRNA',
-            field=models.ManyToManyField(related_name='gRNA', to='labinv.gRNA'),
+            field=models.ForeignKey(to='labinv.gRNA', related_name='gRNA'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='uinjection',
             name='otherTubes',
-            field=models.ManyToManyField(blank=True, null=True, to='labinv.Tube'),
+            field=models.ManyToManyField(to='labinv.Tube', null=True, blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -38,9 +38,21 @@ class Migration(migrations.Migration):
             preserve_default=True,
         ),
         migrations.AddField(
+            model_name='imgdata',
+            name='polymorphic_ctype',
+            field=models.ForeignKey(to='contenttypes.ContentType', null=True, related_name='polymorphic_data.imgdata_set', editable=False),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='gel',
+            name='tubes',
+            field=models.ManyToManyField(to='labinv.Tube', null=True, blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
             model_name='experiment',
             name='polymorphic_ctype',
-            field=models.ForeignKey(related_name='polymorphic_data.experiment_set', null=True, editable=False, to='contenttypes.ContentType'),
+            field=models.ForeignKey(to='contenttypes.ContentType', null=True, related_name='polymorphic_data.experiment_set', editable=False),
             preserve_default=True,
         ),
     ]

@@ -1,6 +1,7 @@
 from django.db import models
 from polymorphic import PolymorphicModel
 import datetime
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 class Tube(PolymorphicModel):
@@ -26,6 +27,8 @@ class gRNA(Tube):
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
 		return dateString+'_'+self.geneTarget
+	def get_absolute_url(self):
+		return reverse('labinv.views.gRNA-detail',args=[str(self.id)])
 
 class cas9(Tube):
 	TYPE_CHOICES=(
@@ -37,9 +40,14 @@ class cas9(Tube):
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
 		return dateString+'_'+self.c9type
+	def get_absolute_url(self):
+		return reverse('labinv.views.cas9-detail',args=[str(self.id)])
 
 class strip(Tube):
 	key=models.TextField('Comma-separated by tube; semicolon if >1 in set')
+	def get_absolute_url(self):
+		return reverse('labinv.views.strip-detail',args=[str(self.id)])
 
 class miscTube(Tube):
-	pass
+	def get_absolute_url(self):
+		return reverse('labinv.views.miscTube-detail',args=[str(self.id)])
