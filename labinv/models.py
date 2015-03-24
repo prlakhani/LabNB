@@ -13,7 +13,7 @@ class Tube(PolymorphicModel):
 	# 	ordering=['date']
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
-		return dateString+'_'+self.shortName
+		return dateString+'_tube_'+self.shortName
 
 class gRNA(Tube):
 	geneTarget=models.CharField(max_length=10)
@@ -26,9 +26,10 @@ class gRNA(Tube):
 	concentration=models.FloatField('concentration in ng/uL')
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
-		return dateString+'_'+self.geneTarget
-	def get_absolute_url(self):
-		return reverse('labinv.views.gRNA-detail',args=[str(self.id)])
+		return dateString+'_gRNA_'+self.geneTarget
+	# @models.permalink
+	# def get_absolute_url(self):
+	# 	return reverse('labinv.views.gRNA-detail',args=[str(self.id)])
 
 class cas9(Tube):
 	TYPE_CHOICES=(
@@ -39,15 +40,22 @@ class cas9(Tube):
 	concentration=models.FloatField('concentration in ng/uL')
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
-		return dateString+'_'+self.c9type
-	def get_absolute_url(self):
-		return reverse('labinv.views.cas9-detail',args=[str(self.id)])
+		return dateString+'_cas9'+self.c9type
+	# @models.permalink
+	# def get_absolute_url(self):
+	# 	return reverse('labinv.views.cas9-detail',args=[str(self.id)])
 
 class strip(Tube):
 	key=models.TextField('Comma-separated by tube; semicolon if >1 in set')
-	def get_absolute_url(self):
-		return reverse('labinv.views.strip-detail',args=[str(self.id)])
+	# @models.permalink
+	# def get_absolute_url(self):
+	# 	return reverse('labinv.views.strip-detail',args=[str(self.id)])
+	def __str__(self):
+		dateString=datetime.date.strftime(self.date,'%m%d%y')
+		return dateString+'_strip_'+self.shortName
 
 class miscTube(Tube):
-	def get_absolute_url(self):
-		return reverse('labinv.views.miscTube-detail',args=[str(self.id)])
+	pass
+	# @models.permalink
+	# def get_absolute_url(self):
+	# 	return reverse('labinv.views.miscTube-detail',args=[str(self.id)])

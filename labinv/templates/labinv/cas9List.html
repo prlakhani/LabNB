@@ -1,26 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}Lab Notebook - Data - Survival Experiments{% endblock title %}
+{% block title %}Lab Notebook - LabInv - cas9s{% endblock title %}
 
 {% block content %}
 <div class="container">
 	<div class="row">
+	<h1>All cas9 tubes</h1>
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>Name</th>
 					<th>Date</th>
-					<th>Injection</th>
+					<th>Type</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for survExp in survExps %}
+				{% for cas9 in cas9s %}
 					<tr>
-						<td>{{ survExp.shortName }}</td>
-						<td>{{ survExp.date }}</td>
-						<td>{{ survExp.uInjection }}</td>
+						<td><a href="/labinv/cas9.{{ cas9.pk }}">{{ cas9.date }}</td>
+						<td>{{ cas9.c9type }}</td>
 					</tr>
-					
+				{% empty %}
+				<p>No cas9 tubes yet</p>	
 				{% endfor %}
 			</tbody>
 		</table>

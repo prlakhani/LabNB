@@ -10,26 +10,31 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+def index(request):
+	t = loader.get_template('data/dataindex.html')
+	C=Context()
+	return HttpResponse(t.render(C))
+
 ###
 # Survival Experiment views
 ###
 
-def survExpList(request):
-	t=loader.get_template('data/survExpList.html')
-	survExps=survivalExp.objects.all()
-	C=Context({'survExps': survExps})
+def inxSurvExpList(request):
+	t=loader.get_template('data/inxSurvExpList.html')
+	inxSurvExps=inxSurvivalExp.objects.all()
+	C=Context({'inxSurvExps': inxSurvExps})
 	return HttpResponse(t.render(C))
 	
-class survExpCreateView(CreateView):
-    model = survivalExp
+class inxSurvExpCreateView(CreateView):
+    model = inxSurvivalExp
 
-class survExpUpdateView(UpdateView):
+class inxSurvExpUpdateView(UpdateView):
+	model = inxurvivalExp
+
+class inxSurvExpDeleteView(DeleteView):
 	model = survivalExp
 
-class survExpDeleteView(DeleteView):
-	model = survivalExp
-
-def survExpPlot(request,survexp_id):
+def inxSurvExpPlot(request,pk):
 	import random
 	import django
 	import pandas as pd
@@ -39,7 +44,7 @@ def survExpPlot(request,survexp_id):
 	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 	from matplotlib.figure import Figure
 
-	thisSurvExp=survivalExp.objects.get(pk=survexp_id)
+	thisSurvExp=survivalExp.objects.get(pk=pk)
 	# without wasting variables, this converts the comma-separated string into an int list
 	dailyDeathsExp=[int(deathExp) for deathExp in split(',',thisSurvExp.dailyDeathsExp)]
 	dailyDeathsExp.append(thisSurvExp.expFinalSurviving)
@@ -72,7 +77,7 @@ def survExpPlot(request,survexp_id):
 	response=HttpResponse(content_type='image/png')
 	canvas.print_png(response)
 	return response	
-	
+
 def survExpDetail(request,survexp_id):
 	t=loader.get_template('data/survexpdetail.html')
 	thisSurvExp=survivalExp.objects.get(pk=survexp_id)
@@ -98,3 +103,21 @@ class uInxUpdateView(UpdateView):
 class uInxDeleteView(DeleteView):
 	model = uInjection
     
+###
+# miscExperiment views
+###
+
+def miscExpList(request):
+	t=loader.get_template('data/miscExpList.html')
+	uInjections=uInjection.objects.all()
+	C=Context({'uInjections': uInjections})
+	return HttpResponse(t.render(C))
+
+class uInxCreateView(CreateView):
+    model = uInjection
+
+class uInxUpdateView(UpdateView):
+	model = uInjection
+
+class uInxDeleteView(DeleteView):
+	model = uInjection

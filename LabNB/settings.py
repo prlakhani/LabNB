@@ -37,7 +37,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'dh5bp'                         # allows html5 boilerplate
+    # apps that make other things work
+    # 'haystack',
+    # my apps
     'labinv',
     'data',
 )
@@ -98,11 +100,22 @@ MEDIA_URL = '/media/'                           # path on webserver, somehow? re
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')     # path on FS to media files
 
 # This is only useful for templates outside of any apps, I think?
-TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates','LabNB')]
-TEMPLATE_LOADERS = (
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.filesystem.Loader',
-)
+TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates','LabNB'),os.path.join]
+# TEMPLATE_LOADERS = (
+#     'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.filesystem.Loader',
+# )
 
 # login
 LOGIN_URL = 'accounts/login/'
+
+# Search stuff via Haystack and elasticsearch
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+#         'URL': 'http://127.0.0.1:9200/',
+#         'INDEX_NAME': 'haystack',
+#     },
+# }
+
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

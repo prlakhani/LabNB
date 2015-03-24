@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Notebook - LabInv - misc tubes{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	<h1>All miscellaneous tubes</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date</th>
+					<th>Exists?</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for miscTube in miscTubes %}
+					<tr>
+						<td><a href="/labinv/miscTube/{{miscTube.pk}}">{{ miscTube.shortName }}</a></td>
+						<td>{{ miscTube.date }}</td>
+						<td>{{ miscTube.exists }}</td>
+					</tr>
+				{% empty %}	
+				<p>No misc tubes yet</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{{block.super}}
+</div>
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Notebook - LabInv - gRNAs{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	<h1>All gRNAs</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Target Gene</th>
+					<th>Date</th>
+					<th>Promoter</th>
+					<th>Exists?</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for gRNA in gRNAs %}
+					<tr>
+						<td><a href="/labinv/gRNA/{{ gRNA.pk }}">{{ gRNA.geneTarget }}</a></td>
+						<td>{{ gRNA.date }}</td>
+						<td>{{ gRNA.promoter }}</td>
+						<td>{{ gRNA.exists }}</td>
+					</tr>
+					
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary btn-lg" href="/labinv/gRNA/create" role="button">Add a gRNA &raquo;</a>
+	</div>
+	{{block.super}}
+</div>
+{% endblock content %}

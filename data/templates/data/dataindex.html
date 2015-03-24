@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Data Home{% endblock title %}
+
+{% block content %}
+	<div class="container">
+	<div class="row">
+		<h1>What new data do you have for me today?</h1> 
+	</div>
+	<hr>
+		<div class="row">
+			<h2>Experiments</h2>
+			<div class="col-md-3">
+				<h3>Microinjection</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/data/uInx" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/data/uInx/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-3">
+				<h3>Injection survival</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/data/survExp" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/data/survExp/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-3">
+				<h3>Other survival</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/data/surv" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/data/surv/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-3">
+				<h3>Other experiment</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/data/exp" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/data/exp/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<h2>Image data</h2>
+			<div class="col-md-6">
+				<h3>Gel</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/data/gel" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/data/gel/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-6">
+				<h3>Other Image</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/data/img" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/data/img/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+		</div>
+		{{ block.super }}
+	</div>
+{% endblock content %}

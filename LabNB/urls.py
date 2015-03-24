@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
-from LabNB import views         # This lets us use the custom error handlers, as well as an index view with context, if desired.
+from LabNB import views     # This lets us use the custom error handlers, as well as an index view with context, if desired.
 
 # These handlers override the default error page provided by Django.
 # Django looks for these var names specifically in the urlconf.
@@ -13,29 +13,26 @@ handler500 = 'LabNB.views.server_error'
 from django.views.generic import TemplateView, RedirectView
 
 # URLs
-
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'LabNB.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
     # http://stackoverflow.com/questions/1940528/django-index-page-best-most-common-practice
     url(r'^$', views.index, name='index'),
-    # url(r'^$', TemplateView.as_view(template_name="index.html")),
     url(r'^accounts/login/', 'django.contrib.auth.views.login'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^labinv/', include('labinv.urls', namespace="labinv")),
-    url(r'^data/', include('data.urls', namespace="data")),
+    url(r'^labinv/', include('labinv.urls', namespace='labinv')),
+    url(r'^data/', include('data.urls', namespace='data')),
     url(r'^apple-touch-icon\.png$', RedirectView.as_view(
-    	url='%simg/apple-touch-icon.png' % settings.STATIC_URL)),
-	url(r'^crossdomain\.xml$', TemplateView.as_view(
-		template_name='crossdomain.xml')),
-	url(r'^favicon\.ico$', RedirectView.as_view(
-		url='%simg/favicon.ico' % settings.STATIC_URL)),
-	url(r'^humans\.txt', TemplateView.as_view(
-		template_name='humans.txt')),
+        url='%simg/apple-touch-icon.png' % settings.STATIC_URL)),
+    url(r'^crossdomain\.xml$', TemplateView.as_view(
+	   template_name='crossdomain.xml')),
+    url(r'^favicon\.ico$', RedirectView.as_view(
+	   url='%simg/favicon.ico' % settings.STATIC_URL)),
+    url(r'^humans\.txt', TemplateView.as_view(
+	   template_name='humans.txt')),
 	url(r'^robots\.txt', TemplateView.as_view(
-		template_name='robots.txt'))
+		template_name='robots.txt')),
 )
 
 urlpatterns += patterns('', (

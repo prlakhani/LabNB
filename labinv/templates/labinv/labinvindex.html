@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Inventory Home{% endblock title %}
+
+{% block content %}
+	<div class="container">
+	<div class="row">
+		<h1>What new stuff do you have for me today?</h1>
+	</div>
+	<hr>
+		<div class="row">
+			<div class="col-md-3">
+				<h3>gRNA</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/labinv/gRNA" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/labinv/gRNA/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-3">
+				<h3>cas9</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/labinv/cas9" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/labinv/cas9/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-3">
+				<h3>Strip</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/labinv/strip" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/labinv/strip/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-3">
+				<h3>Other tube</h3>
+				<p>
+				<a class="btn btn-primary btn-md" href="/labinv/tube" role="button">View All &raquo;</a>
+				<a class="btn btn-primary btn-md" href="/labinv/tube/create" role="button">Add &raquo;</a>
+				</p>
+			</div>
+		</div>
+	{{block.super}}
+	</div>
+
+{% endblock content %}

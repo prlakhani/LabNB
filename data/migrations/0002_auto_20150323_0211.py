@@ -8,8 +8,8 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('data', '0001_initial'),
-        ('labinv', '0001_initial'),
         ('contenttypes', '0001_initial'),
+        ('labinv', '0001_initial'),
     ]
 
     operations = [
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='uinjection',
             name='otherTubes',
-            field=models.ManyToManyField(to='labinv.Tube', null=True, blank=True),
+            field=models.ManyToManyField(blank=True, null=True, to='labinv.Tube'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -39,20 +39,26 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='imgdata',
+            name='exp',
+            field=models.ForeignKey(to='data.Experiment'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='imgdata',
             name='polymorphic_ctype',
-            field=models.ForeignKey(to='contenttypes.ContentType', null=True, related_name='polymorphic_data.imgdata_set', editable=False),
+            field=models.ForeignKey(editable=False, null=True, to='contenttypes.ContentType', related_name='polymorphic_data.imgdata_set'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='gel',
             name='tubes',
-            field=models.ManyToManyField(to='labinv.Tube', null=True, blank=True),
+            field=models.ManyToManyField(blank=True, null=True, to='labinv.Tube'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='experiment',
             name='polymorphic_ctype',
-            field=models.ForeignKey(to='contenttypes.ContentType', null=True, related_name='polymorphic_data.experiment_set', editable=False),
+            field=models.ForeignKey(editable=False, null=True, to='contenttypes.ContentType', related_name='polymorphic_data.experiment_set'),
             preserve_default=True,
         ),
     ]
