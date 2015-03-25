@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Notebook - Data - Microinjection Survival{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	<h1>All Microinjection Survivals</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Injection</th>
+					<th># Injected</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for inxSurvExp in inxSurvExps %}
+					<tr>
+						<td><a href="/data/inxSurvExp/{{ inxSurvExp.pk }}">{{ inxSurvExp }}</a></td>
+						<td>{{ inxSurvExp.nInx }}</td>
+					</tr>
+				{% empty %}
+				<p>No microinjection survivals yet</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary btn-lg" href="/data/inxSurvExp/create" role="button">Add a microinjection survival &raquo;</a>
+	</div>
+	{{block.super}}
+</div>
+{% endblock content %}

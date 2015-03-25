@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Notebook - Data - Misc Image{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	<h1>All Miscellaneous Images</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for miscImg in miscImgs %}
+					<tr>
+						<td><a href="/data/img/{{ miscImg.pk }}">{{ miscImg.shortName }}</a></td>
+						<td>{{ miscImg.date|date:'d M Y' }}</td>
+					</tr>
+				{% empty %}
+				<p>No images yet</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary btn-lg" href="/data/img/create" role="button">Add a miscellaneous image &raquo;</a>
+	</div>
+	{{block.super}}
+</div>
+{% endblock content %}

@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Add uInjection Experiment{% endblock %}
+{% block title %}Add other image{% endblock %}
 
 {% block content %}
+
 <div class="container">
 	<div class="row">
-	<h2>Add a microinjection</h2>
+	<h2>Add a miscellaneous image</h2>
 	<hr>
 		<form method="POST">{% csrf_token %}
-    		{{ form.as_p }}
+    		{{ form.as_p}}
     		<button type="submit">Save</button>
 		</form>
 	</div>

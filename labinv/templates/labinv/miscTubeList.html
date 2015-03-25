@@ -18,7 +18,7 @@
 				{% for miscTube in miscTubes %}
 					<tr>
 						<td><a href="/labinv/miscTube/{{miscTube.pk}}">{{ miscTube.shortName }}</a></td>
-						<td>{{ miscTube.date }}</td>
+						<td>{{ miscTube.date|date:'d M Y' }}</td>
 						<td>{{ miscTube.exists }}</td>
 					</tr>
 				{% empty %}	

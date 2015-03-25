@@ -16,7 +16,7 @@
 			<tbody>
 				{% for cas9 in cas9s %}
 					<tr>
-						<td><a href="/labinv/cas9.{{ cas9.pk }}">{{ cas9.date }}</td>
+						<td><a href="/labinv/cas9.{{ cas9.pk }}">{{ cas9.date|date:'mdy' }}_{{ cas9.c9type }}</td>
 						<td>{{ cas9.c9type }}</td>
 					</tr>
 				{% empty %}
@@ -24,6 +24,9 @@
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary btn-lg" href="/labinv/cas9/create" role="button">Add a gRNA &raquo;</a>
 	</div>
 	{{block.super}}
 </div>

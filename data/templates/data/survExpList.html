@@ -5,25 +5,28 @@
 {% block content %}
 <div class="container">
 	<div class="row">
+	<h1>All Survival Experiments</h1>
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Date</th>
-					<th>Injection</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for survExp in survExps %}
 					<tr>
-						<td>{{ survExp.shortName }}</td>
+						<td><a href="/data/survExp/{{ survExp.pk }}">{{ survExp.shortName }}</a></td>
 						<td>{{ survExp.date }}</td>
-						<td>{{ survExp.uInjection }}</td>
 					</tr>
-					
+				{% empty %}
+				<p>No survival experiments yet</p>
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+		<div class="row">
+		<a class="btn btn-primary btn-lg" href="/data/survExp/create" role="button">Add a survival experiment &raquo;</a>
 	</div>
 	{{block.super}}
 </div>

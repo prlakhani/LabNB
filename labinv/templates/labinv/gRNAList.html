@@ -19,7 +19,7 @@
 				{% for gRNA in gRNAs %}
 					<tr>
 						<td><a href="/labinv/gRNA/{{ gRNA.pk }}">{{ gRNA.geneTarget }}</a></td>
-						<td>{{ gRNA.date }}</td>
+						<td>{{ gRNA.date|date:'d M Y' }}</td>
 						<td>{{ gRNA.promoter }}</td>
 						<td>{{ gRNA.exists }}</td>
 					</tr>

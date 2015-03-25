@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Notebook - Data - Gels{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	<h1>All Gels</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for gel in gels %}
+					<tr>
+						<td><a href="/data/gel/{{ gel.pk }}">{{ gel.shortName }}</a></td>
+						<td>{{ gel.date|date:'d M Y' }}</td>
+					</tr>
+				{% empty %}
+				<p>No gels yet</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary btn-lg" href="/data/gel/create" role="button">Add a gel &raquo;</a>
+	</div>
+	{{block.super}}
+</div>
+{% endblock content %}

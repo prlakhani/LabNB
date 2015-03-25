@@ -2,6 +2,7 @@ from django.conf.urls import patterns,url
 from labinv import views
 
 urlpatterns = patterns('',
+	url(r'^accounts/login/', 'django.contrib.auth.views.login'),
 	url(r'^$', views.index, name='index'),
 	url(r'^gRNA/$', views.gRNAList, name='gRNA-list'),
 	url(r'^gRNA/create$', views.gRNACreateView.as_view(), name='gRNA-create'),
@@ -18,9 +19,9 @@ urlpatterns = patterns('',
 	url(r'^strip/(?P<pk>\d+)$',views.stripDetail, name='strip-detail'),
 	url(r'^strip/(?P<pk>\d+)/update$',views.stripUpdateView.as_view(), name='strip-update'),
 	url(r'^strip/(?P<pk>\d+)/delete$',views.stripDeleteView.as_view(), name='strip-delete'),
-	url(r'^miscTube/$', views.miscTubeList, name='miscTube-list'),
-	url(r'^miscTube/create$', views.miscTubeCreateView.as_view(), name='miscTube-create'),
-	url(r'^miscTube/(?P<pk>\d+)$',views.miscTubeDetail, name='miscTube-detail'),
-	url(r'^miscTube/(?P<pk>\d+)/update$',views.miscTubeUpdateView.as_view(), name='miscTube-update'),
-	url(r'^miscTube/(?P<pk>\d+)/delete$',views.miscTubeDeleteView.as_view(), name='miscTube-delete'),
+	url(r'^tube/$', views.tubeList, name='tube-list'),
+	url(r'^tube/create$', views.tubeCreateView.as_view(), name='tube-create'),
+	url(r'^tube/(?P<pk>\d+)$',views.tubeDetail, name='tube-detail'),
+	url(r'^tube/(?P<pk>\d+)/update$',views.tubeUpdateView.as_view(), name='tube-update'),
+	url(r'^tube/(?P<pk>\d+)/delete$',views.tubeDeleteView.as_view(), name='tube-delete'),
 	)

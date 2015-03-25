@@ -1,29 +1,33 @@
 {% extends "base.html" %}
 
-{% block title %}Lab Notebook - LabInv - uInjection Experiments{% endblock title %}
+{% block title %}Lab Notebook - LabInv - Microinjection Experiments{% endblock title %}
 
 {% block content %}
 <div class="container">
 	<div class="row">
+	<h1>All microinjections</h1>
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>Name</th>
-					<th>Date</th>
-					<th>gRNA</th>
+					<th>cas9 type</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for uInx in uInjections %}
 					<tr>
-						<td>{{ uInx.shortName }}</td>
-						<td>{{ uInx.date }}</td>
-						<td>{{ uInx.gRNA }}</td>
+						<td><a href="/data/uInx/{{ uInx.pk }}">{{ uInx.date|date:'mdy' }}_{{ uInx.gRNA.geneTarget }}</a></td>
+						<td>{{ uInx.cas9.c9type }}</td>
 					</tr>
-					
+				{% empty %}
+				<p>No microinjections yet</p>
 				{% endfor %}
 			</tbody>
 		</table>
 	</div>
+	<div class="row">
+		<a class="btn btn-primary btn-lg" href="/data/uInx/create" role="button">Add a microinjection &raquo;</a>
+	</div>
+	{{ block.super }}
 </div>
 {% endblock content %}

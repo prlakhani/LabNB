@@ -18,7 +18,7 @@
 				{% for strip in strips %}
 					<tr>
 						<td><a href="/labinv/strip/{{ strip.pk }}">{{ strip.shortName }}</a></td>
-						<td>{{ strip.date }}</td>
+						<td>{{ strip.date|date:'d M Y' }}</td>
 						<td>{{ strip.exists }}</td>
 					</tr>
 				{% empty %}

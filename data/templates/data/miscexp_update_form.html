@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Add uInjection Experiment{% endblock %}
+{% block title %}Update {{object}}{% endblock %}
 
 {% block content %}
+
 <div class="container">
 	<div class="row">
-	<h2>Add a microinjection</h2>
+	<h2>Update "{{ object }}"</h2>
 	<hr>
 		<form method="POST">{% csrf_token %}
-    		{{ form.as_p }}
-    		<button type="submit">Save</button>
+    		{{ form.as_p}}
+    		<button type="submit" value="Update">Update</button>
 		</form>
 	</div>
 	{{block.super}}

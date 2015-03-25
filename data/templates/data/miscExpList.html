@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Notebook - Data - Misc Experiment{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	<h1>All Miscellaneous Experiments</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for miscExp in miscExps %}
+					<tr>
+						<td><a href="/data/exp/{{ miscExp.pk }}">{{ miscExp.shortName }}</a></td>
+						<td>{{ miscExp.date|date:'d M Y' }}</td>
+					</tr>
+				{% empty %}
+				<p>No experiments yet</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary btn-lg" href="/data/exp/create" role="button">Add a miscellaneous experiment &raquo;</a>
+	</div>
+	{{block.super}}
+</div>
+{% endblock content %}

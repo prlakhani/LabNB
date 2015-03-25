@@ -12,11 +12,13 @@ from django.core.urlresolvers import reverse_lazy
 
 # Create your views here.
 
+@login_required
 def index(request):
 	t = loader.get_template('labinv/labinvindex.html')
 	C=Context()
 	return HttpResponse(t.render(C))
 
+@login_required
 def gRNAList(request):
 	t=loader.get_template('labinv/gRNAList.html')
 	gRNAs=gRNA.objects.all()
@@ -44,12 +46,14 @@ class gRNADeleteView(DeleteView):
 	# def get_success_url(self):
 	# 	return reverse_lazy('gRNA-list')
 
+@login_required
 def gRNADetail(request,pk):
 	t=loader.get_template('labinv/grnadetail.html')
 	thisgRNA=gRNA.objects.get(pk=pk)
 	C=Context({'gRNA': thisgRNA})
 	return HttpResponse(t.render(C))
 
+@login_required
 def cas9List(request):
 	t=loader.get_template('labinv/cas9List.html')
 	cas9s=cas9.objects.all()
@@ -69,12 +73,14 @@ class cas9DeleteView(DeleteView):
 	model = cas9
 	success_url='/labinv/cas9/'
 
+@login_required
 def cas9Detail(request,pk):
 	t=loader.get_template('data/cas9detail.html')
 	thiscas9=cas9.objects.get(pk=pk)
 	C=Context({'cas9': thiscas9})
 	return HttpResponse(t.render(C))
 
+@login_required
 def stripList(request):
 	t=loader.get_template('labinv/stripList.html')
 	strips=strip.objects.all()
@@ -94,32 +100,35 @@ class stripDeleteView(DeleteView):
 	model = strip
 	success_url='/labinv/strip/'
 
+@login_required
 def stripDetail(request,pk):
 	t=loader.get_template('data/stripdetail.html')
 	thisstrip=strip.objects.get(pk=pk)
 	C=Context({'strip': thisstrip})
 	return HttpResponse(t.render(C))
 
-def miscTubeList(request):
+@login_required
+def tubeList(request):
 	t=loader.get_template('labinv/miscTubeList.html')
 	miscTubes=miscTube.objects.all()
 	C=Context({'miscTubes': miscTubes})
 	return HttpResponse(t.render(C))
 
-class miscTubeCreateView(CreateView):
+class tubeCreateView(CreateView):
     model = miscTube
     success_url='/labinv/miscTube/'
 
-class miscTubeUpdateView(UpdateView):
+class tubeUpdateView(UpdateView):
 	model = miscTube
 	template_name_suffix = '_update_form'
 	success_url='/labinv/miscTube/'
 
-class miscTubeDeleteView(DeleteView):
+class tubeDeleteView(DeleteView):
 	model = miscTube
 	success_url='/labinv/miscTube/'
 
-def miscTubeDetail(request,pk):
+@login_required
+def tubeDetail(request,pk):
 	t=loader.get_template('data/miscTubedetail.html')
 	thismiscTube=miscTube.objects.get(pk=pk)
 	C=Context({'miscTube': thismiscTube})
