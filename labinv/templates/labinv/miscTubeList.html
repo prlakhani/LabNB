@@ -17,7 +17,7 @@
 			<tbody>
 				{% for miscTube in miscTubes %}
 					<tr>
-						<td><a href="/labinv/miscTube/{{miscTube.pk}}">{{ miscTube.shortName }}</a></td>
+						<td><a href="/labinv/tube/{{miscTube.pk}}">{{ miscTube.shortName }}</a></td>
 						<td>{{ miscTube.date|date:'d M Y' }}</td>
 						<td>{{ miscTube.exists }}</td>
 					</tr>
@@ -26,6 +26,9 @@
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary btn-lg" href="/labinv/tube/create" role="button">Add a tube &raquo;</a>
 	</div>
 	{{block.super}}
 </div>

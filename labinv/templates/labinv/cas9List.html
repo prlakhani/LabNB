@@ -16,7 +16,7 @@
 			<tbody>
 				{% for cas9 in cas9s %}
 					<tr>
-						<td><a href="/labinv/cas9.{{ cas9.pk }}">{{ cas9.date|date:'mdy' }}_{{ cas9.c9type }}</td>
+						<td><a href="/labinv/cas9/{{ cas9.pk }}">{{ cas9.date|date:'mdy' }}_{{ cas9.c9type }}</td>
 						<td>{{ cas9.c9type }}</td>
 					</tr>
 				{% empty %}

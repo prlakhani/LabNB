@@ -13,9 +13,9 @@ class Experiment(PolymorphicModel):
 		return dateString+'_exp'
 
 class uInjection(Experiment):
-	gRNA=models.ForeignKey('labinv.gRNA',related_name='gRNA')
+	gRNA=models.ForeignKey('labinv.gRNA',related_name='inxgRNA')
 	gRNAvolume=models.DecimalField('volume in uL',max_digits=3,decimal_places=2,default=1.0)
-	cas9=models.ForeignKey('labinv.cas9',related_name='cas9')
+	cas9=models.ForeignKey('labinv.cas9',related_name='inxcas9')
 	cas9volume=models.DecimalField('volume in uL',max_digits=3,decimal_places=2,default=1.0)
 	otherTubes=models.ManyToManyField('labinv.Tube',blank=True,null=True)
 	totalVol=models.DecimalField('total volume in uL',max_digits=3,decimal_places=2)
@@ -28,7 +28,7 @@ class uInjection(Experiment):
 	# 	return reverse('data.views.uInx-detail',args=[str(self.id)])
 
 class inxSurvivalExp(Experiment):
-	inx=models.ForeignKey(uInjection)
+	inx=models.ForeignKey('uInjection')
 	nInx=models.IntegerField('Number injected',default=100)
 	dailyDeathsExp=models.CommaSeparatedIntegerField('Experimental group deaths, comma separated',
 		default='0,0,0,0,0,0,0,0',max_length=100)
@@ -57,7 +57,6 @@ class survivalExp(Experiment):
 class miscExp(Experiment):
 	# No idea what this might be for, but it may come in handy.
 	shortName=models.CharField(max_length=50)
-	pass
 	# def get_absolute_url(self):
 	# 	return reverse('data.views.miscExp-detail',args=[str(self.id)])
 

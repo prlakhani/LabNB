@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Gel Detail - {{ gel }}{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<p>
+	<h1> Gel Detail: <small>{{ gel }}</small></h1>
+	</p>
+	<a class="btn btn-primary btn-md" href="{{ gel.pk }}/update" role="button">&laquo; Update &raquo;</a>
+	<a class="btn btn-danger btn-md" href="{{ gel.pk }}/delete" role="button">&laquo; Delete &raquo;</a>
+	<hr>
+	<p>
+	<b>Date: </b>{{ gel.date }}
+	</p>
+	<p>
+	<b>Name: </b>{{ gel.shortName }}
+	</p>
+	<div class="row">
+		<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Gel image</h3>
+			</div>
+			<div class="panel-body">
+				<a href="{{ MEDIA_URL }}{{ gel.gelFile.url }}">
+				<img src="{{ MEDIA_URL }}{{ gel.gelFile.url }}" style="max-width:80%"></a>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Key</h3>
+			</div>
+			<div class="panel-body">
+			<table>
+			</table>
+			</div>
+		</div>
+		</div>
+	</div>
+	<hr>
+	<a class="btn btn-primary btn-md" href="{{ cas9.pk }}/update" role="button">&laquo; Update &raquo;</a>
+	<a class="btn btn-danger btn-md" href="{{ cas9.pk }}/delete" role="button">&laquo; Delete &raquo;</a>
+	{{block.super}}
+</div>
+{% endblock content %}

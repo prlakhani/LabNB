@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 
 # Create your models here.
 class Tube(PolymorphicModel):
-	shortName=models.CharField(max_length=50)
+	# shortName=models.CharField(max_length=50)
 	date=models.DateField(default=datetime.date.today())
 	exists=models.BooleanField(default=True)
 	note=models.TextField()
@@ -24,6 +24,9 @@ class gRNA(Tube):
 		)
 	promoter=models.CharField(choices=PROMOTER_CHOICES,max_length=10)
 	concentration=models.FloatField('concentration in ng/uL')
+	primerF=models.OneToOneField('miscTube',related_name='primerF',blank=True,null=True)
+	primerR=models.OneToOneField('miscTube',related_name='primerR',blank=True,null=True)
+	prodSize=models.IntegerField('PCR product size for these primers',default=300,blank=True,null=True)
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
 		return dateString+'_gRNA_'+self.geneTarget
@@ -46,7 +49,8 @@ class cas9(Tube):
 	# 	return reverse('labinv.views.cas9-detail',args=[str(self.id)])
 
 class strip(Tube):
-	key=models.TextField('Comma-separated by tube; semicolon if >1 in set')
+	shortName=models.CharField(max_length=50)
+	key=models.TextField('Key; comma-separated by tube; semicolon if >1 in set')
 	# @models.permalink
 	# def get_absolute_url(self):
 	# 	return reverse('labinv.views.strip-detail',args=[str(self.id)])
@@ -55,6 +59,8 @@ class strip(Tube):
 		return dateString+'_strip_'+self.shortName
 
 class miscTube(Tube):
+	shortName=models.CharField(max_length=50)
+	sequence=models.CharField('Sequence, if applicable (primers)',max_length=200,blank=True,null=True)
 	pass
 	# @models.permalink
 	# def get_absolute_url(self):

@@ -50,3 +50,8 @@ urlpatterns += patterns('', (
         {'document_root': settings.STATIC_ROOT}
 )
 )
+
+# urlpatterns += patterns('',
+#                (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+#                  {'document_root': settings.MEDIA_ROOT}),
+#               )

@@ -50,7 +50,11 @@ class gRNADeleteView(DeleteView):
 def gRNADetail(request,pk):
 	t=loader.get_template('labinv/grnadetail.html')
 	thisgRNA=gRNA.objects.get(pk=pk)
-	C=Context({'gRNA': thisgRNA})
+	inxSet=thisgRNA.inxgRNA.all()
+	C=Context({
+		'gRNA': thisgRNA,
+		'inxSet': inxSet,
+		})
 	return HttpResponse(t.render(C))
 
 @login_required
@@ -75,7 +79,7 @@ class cas9DeleteView(DeleteView):
 
 @login_required
 def cas9Detail(request,pk):
-	t=loader.get_template('data/cas9detail.html')
+	t=loader.get_template('labinv/cas9detail.html')
 	thiscas9=cas9.objects.get(pk=pk)
 	C=Context({'cas9': thiscas9})
 	return HttpResponse(t.render(C))
@@ -102,7 +106,7 @@ class stripDeleteView(DeleteView):
 
 @login_required
 def stripDetail(request,pk):
-	t=loader.get_template('data/stripdetail.html')
+	t=loader.get_template('labinv/stripdetail.html')
 	thisstrip=strip.objects.get(pk=pk)
 	C=Context({'strip': thisstrip})
 	return HttpResponse(t.render(C))
@@ -116,20 +120,20 @@ def tubeList(request):
 
 class tubeCreateView(CreateView):
     model = miscTube
-    success_url='/labinv/miscTube/'
+    success_url='/labinv/tube/'
 
 class tubeUpdateView(UpdateView):
 	model = miscTube
 	template_name_suffix = '_update_form'
-	success_url='/labinv/miscTube/'
+	success_url='/labinv/tube/'
 
 class tubeDeleteView(DeleteView):
 	model = miscTube
-	success_url='/labinv/miscTube/'
+	success_url='/labinv/tube/'
 
 @login_required
 def tubeDetail(request,pk):
-	t=loader.get_template('data/miscTubedetail.html')
+	t=loader.get_template('labinv/miscTubedetail.html')
 	thismiscTube=miscTube.objects.get(pk=pk)
 	C=Context({'miscTube': thismiscTube})
 	return HttpResponse(t.render(C))

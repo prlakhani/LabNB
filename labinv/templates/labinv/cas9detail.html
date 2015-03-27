@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}cas9 Detail - {{ cas9 }}{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<p>
+	<h1> cas9 Detail: <small>{{ cas9 }}</small></h1>
+	{% if cas9.exists %}<span class="label label-success">Exists</span>{% else %}<span class="label label-danger">Does not exist</span>{% endif %}
+	</p>
+	<a class="btn btn-primary btn-md" href="{{ cas9.pk }}/update" role="button">&laquo; Update &raquo;</a>
+	<a class="btn btn-danger btn-md" href="{{ cas9.pk }}/delete" role="button">&laquo; Delete &raquo;</a>
+	<hr>
+	<p>
+	<b>Date aliquoted: </b>{{ cas9.date }}
+	</p>
+	<div class="row">
+		<div class="col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">cas9 type</h3>
+			</div>
+			<div class="panel-body">
+				{{ cas9.c9type }}
+			</div>
+		</div>
+		</div>
+		<div class="col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">cas9 concentration</h3>
+			</div>
+			<div class="panel-body">
+				{{ cas9.concentration }} ng/uL
+			</div>
+		</div>
+		</div>
+		<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Notes</h3>
+			</div>
+			<div class="panel-body">
+				{{ cas9.note }}
+			</div>
+		</div>
+		</div>
+	</div>
+	<hr>
+	<a class="btn btn-primary btn-md" href="{{ cas9.pk }}/update" role="button">&laquo; Update &raquo;</a>
+	<a class="btn btn-danger btn-md" href="{{ cas9.pk }}/delete" role="button">&laquo; Delete &raquo;</a>
+	{{block.super}}
+</div>
+{% endblock content %}

@@ -4,8 +4,97 @@
 
 {% block content %}
 <div class="container">
+	<p>
+	<h1> gRNA Detail: <small>{{ gRNA }}</small></h1>
+	{% if gRNA.exists %}<span class="label label-success">Exists</span>{% else %}<span class="label label-danger">Does not exist</span>{% endif %}
+	</p>
+	<a class="btn btn-primary btn-md" href="{{ gRNA.pk }}/update" role="button">&laquo; Update &raquo;</a>
+	<a class="btn btn-danger btn-md" href="{{ gRNA.pk }}/delete" role="button">&laquo; Delete &raquo;</a>
+	
+	<hr>
+	<p>
+	<b>Date aliquoted: </b>{{ gRNA.date }}
+	</p>
 	<div class="row">
-		<h1> gRNA Detail - {{ gRNA }}</h1>
+		<div class="col-md-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Target gene</h3>
+			</div>
+			<div class="panel-body">
+				{{ gRNA.geneTarget }}
+			</div>
+		</div>
+		</div>
+		<div class="col-md-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Promoter</h3>
+			</div>
+			<div class="panel-body">
+				{{ gRNA.promoter }}
+			</div>
+		</div>
+		</div>
+		<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Target sequence</h3>
+			</div>
+			<div class="panel-body">
+				{{ gRNA.targetSeq }}
+			</div>
+		</div>
+		</div>
+		<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Notes</h3>
+			</div>
+			<div class="panel-body">
+				{{ gRNA.note }}
+			</div>
+		</div>
+		</div>	
 	</div>
+	<p align="right">
+	<b>Concentration: </b>{{gRNA.concentration}} ng/uL
+	</p>
+	<hr>
+	<div class="row">
+	<div class="col-md-12">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Primers</h3>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item"><b>Forward primer: </b>{{ gRNA.primerF.sequence }}</li>
+			<li class="list-group-item"><b>Reverse primer: </b>{{ gRNA.primerR.sequence }}</li>
+		</ul>
+	</div>
+	</div>
+	</div>
+	<p align="right">
+	<b>Product size: </b>{{gRNA.prodSize}} bp
+	</p>
+	<hr>
+	<div class="row">
+	<div class="col-md-12">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">Microinjection experiments using this gRNA</h3>
+		</div>
+		<ul class="list-group">
+			{% for inx in inxSet %}
+			<li class="list-group-item"><a href="/data/uInx/{{inx.pk}}">{{ inx }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	</div>
+	</div>
+	<hr>
+	<a class="btn btn-primary btn-md" href="{{ gRNA.pk }}/update" role="button">&laquo; Update &raquo;</a>
+	<a class="btn btn-danger btn-md" href="{{ gRNA.pk }}/delete" role="button">&laquo; Delete &raquo;</a>
+	{{block.super}}
 </div>
 {% endblock content %}
