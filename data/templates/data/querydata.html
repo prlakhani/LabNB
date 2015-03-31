@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Data summary{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<h1>Query Data</h1>
+<div class="input-group">
+	<form method="get" action="{% url 'data:querydata' %}">
+	{% csrf_token %}
+	<input type="text" class="form-control" size=50 name="query" placeholder="Comma-separated list of genes you care about"/>
+	<span class="input-group-btn">
+		<button class="btn btn-default" type="button">Search</button>
+	</span>
+	</form>
+</div>
+</div>
+</div>
+{% if queryString %}
+<div class="row" style="margin-top:1%;">
+<div class="col-md-12">
+{% if badQueries %}
+<div class="panel panel-warning">
+	<div class="panel-heading">
+	<h3 class="panel-title">Queries not found</h3>
+	</div>
+	<div class="panel-body">
+	<p>You had some geneTargets we couldn't find. These are either bad queries, or there have been no gRNAs created for these targets.</p>
+	<ul class="list-group">
+	{% for badQuery in badQueries %}
+	<li class="list-group-item">{{badQuery}}</li>
+	{% endfor %}
+	</ul>
+	</div>
+</div>
+{% endif %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+	<h3 class="panel-title">Search Results for: "{{queryString}}"</h3>
+	</div>
+	<div class="panel-body">
+	<ul class="list-group">
+		{% for query,inxDict in goodQueries.items %}
+			<li class="list-group-item">
+			<h4><a href="{% url 'labinv:gRNA-detail' query.pk %}">{{query}}</a></h4>
+			{% if inxDict %}
+			<table class="table">
+			<thead>
+			<th>Date(s) injected</th>
+			<th># Injected (survival)</th>
+			<th>T7E1 images</th>
+			<th>Phenotype files</th>
+			</thead>
+			<tbody>
+			<!-- for microinjections of this gRNA -->
+			{% for inx,files in inxDict.items %}
+			<tr>
+			<td><a href="{% url 'data:uInx-detail' inx.pk %}">{{inx.date}}</a></td>
+			<td>
+			{% if inx.inxsurvivalexp %}
+			<a href="{% url 'data:inxSurvExp-detail' inx.inxsurvivalexp.pk %}">{{inx.inxsurvivalexp.nInx}} embryos</a>
+			{% else %}
+			No survival data
+			{% endif %}
+			</td>
+			<td>
+			{% if files.T7E1GelSet %}
+				<ul>
+				{% for T7E1 in files.T7E1GelSet %}
+				<li><a href="{% url 'data:gel-detail' T7E1.pk %}">{{T7E1.shortName}}</a></li>
+				{% endfor %}
+				</ul>
+			{% else %}
+			No T7E1 uploaded
+			{% endif %}
+			</td>
+			<td>
+			{% if files.expInfoSet %}
+				<ul>
+				{% for expInfo in files.expInfoSet %}
+				<li><a href="{% url 'data:file-detail' expInfo.pk %}">{{expInfo.shortName}}</a></li>
+				{% endfor %}
+				</ul>
+			{% else %}
+			No expInfos uploaded
+			{% endif %}
+			</td>
+			</tr>
+			{% endfor %}
+			</tbody>
+			</table>
+			{% else %}
+			<p>No injections found for this particular gRNA, though it has been made or received.</p>
+			{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+	</div>
+</div>
+</div>
+</div>
+{% endif %}
+{{block.super}}
+</div>
+{% endblock %}
+<!--{% if queryString %}
+<p>You searched for "{{ queryString }}" and the results are listed below.</p>
+<p>
+{% for obj in found_obj %}
+<li>{{ obj }}</li>
+{% endfor %}
+{% endif %}-->

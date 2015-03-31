@@ -28,7 +28,7 @@ class uInjection(Experiment):
 	# 	return reverse('data.views.uInx-detail',args=[str(self.id)])
 
 class inxSurvivalExp(Experiment):
-	inx=models.ForeignKey('uInjection')
+	inx=models.OneToOneField('uInjection')
 	nInx=models.IntegerField('Number injected',default=100)
 	dailyDeathsExp=models.CommaSeparatedIntegerField('Experimental group deaths, comma separated',
 		default='0,0,0,0,0,0,0,0',max_length=100)
@@ -71,14 +71,15 @@ class fileData(PolymorphicModel):
 	# imgType=models.CharField(choices=IMG_TYPES,max_length=10)
 	# def get_imgType(self):
 	# 	return self.imgType
-	exp=models.ForeignKey(Experiment)	# an image should belong to the inx or misc experiment, not to survival, unless needed to show monsters
-	# exp is a fkey and not a manytomany for simplicity. When an image refers to more than one experiment, it should be cropped to refer to only
-	# one, or simply uploaded multiple times, once for each fkey experiment.
+	
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
 		return dateString+'_file_'+self.shortName
 
 class gel(fileData):
+	exp=models.ForeignKey(Experiment)	# an image should belong to the inx or misc experiment, not to survival, unless needed to show monsters
+	# exp is a fkey and not a manytomany for simplicity. When an image refers to more than one experiment, it should be cropped to refer to only
+	# one, or simply uploaded multiple times, once for each fkey experiment.
 	key=models.TextField('Key; comma-separated by lane; semicolon separated for multiple rows')	# add "only one semicolon" validator
 	tubes=models.ManyToManyField('labinv.Tube',blank=True,null=True)
 	gelFile=models.ImageField(upload_to='images/gels/')
@@ -89,6 +90,7 @@ class gel(fileData):
 		return dateString+'_gel_'+self.shortName
 
 class miscImg(fileData):
+	exp=models.ForeignKey(Experiment)
 	# This is for scope images and the like.
 	imgFile=models.ImageField(upload_to='images/misc/')
 	# def get_absolute_url(self):
@@ -98,5 +100,6 @@ class miscImg(fileData):
 		return dateString+'_img_'+self.shortName
 
 class miscFile(fileData):
+	exp=models.ForeignKey(Experiment)
 	# This is for csvs or mat files pertaining to experiments
 	userFile=models.FileField(upload_to='files/')

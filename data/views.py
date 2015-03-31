@@ -139,7 +139,7 @@ def survExpPlot(request,pk):
 	thisSurvExp=survivalExp.objects.get(pk=pk)
 	# without wasting variables, this converts the comma-separated string into an int list
 	dailyDeathsExp=[int(deathExp) for deathExp in split(',',thisSurvExp.dailyDeathsExp)]
-	expFinalSurviving=thisinxSurvExp.nExp-sum(dailyDeathsExp)
+	expFinalSurviving=thisSurvExp.nExp-sum(dailyDeathsExp)
 	dailyDeathsExp.append(expFinalSurviving)
 	# we need a way for lifelines to understand that not all of our fish died by 7dpf, so we use the 
 	# censorship parameter to say that the last element in this list represents the number of surviving 
@@ -155,7 +155,7 @@ def survExpPlot(request,pk):
 	ax=fig.add_subplot(111)
 
 	kmfExp=KaplanMeierFitter()
-	ax=kmfExp.fit(Texp,event_observed=Cexp,label=str(thisSurvExp)+'\nn = '+thisSurvExp.nExp).plot(ax=ax)
+	ax=kmfExp.fit(Texp,event_observed=Cexp,label=str(thisSurvExp)+'\nn = '+str(thisSurvExp.nExp)).plot(ax=ax)
 	ax.set_ylabel('Fraction Surviving')
 
 	canvas=FigureCanvas(fig)
@@ -321,4 +321,72 @@ def miscFileDetail(request,pk):
 	t=loader.get_template('data/miscfiledetail.html')
 	thisMiscFile=miscFile.objects.get(pk=pk)
 	C=Context({'miscFile': thisMiscFile})
+	return HttpResponse(t.render(C))
+
+###################################################################################################
+
+# Custom views for specific functions
+
+###################################################################################################
+
+@login_required
+def queryData(request):
+	t=loader.get_template('data/querydata.html')
+	# now we check if the user searched for some genes
+	# the important thing about request.GET is that it is a DICTIONARY
+	# Therefore we can access keys and values with standard dictionary syntax.
+
+	# The strip method removes empty and space-only queries. This makes sure we have a real query.
+	if ('query' in request.GET) and request.GET['query'].strip():
+		from re import split 	# hehe real lazy - only load this if we MUST
+		from labinv.models import gRNA	# so we can search geneTargets
+		queryString=request.GET['query']
+		queries=split(',',queryString)
+		badQueries=[]	# list of strings that don't match any geneTargets
+		goodQueries=[]	# list of gRNA objects that were matched
+		for query in queries:
+			qset=gRNA.objects.filter(geneTarget=query)	# filter instead of get b/c may have >1
+														# gRNA with same geneTarget
+			if qset:	# if not empty
+				for guide in qset:	
+					goodQueries.append(guide)
+			else:
+				badQueries.append(query)
+		# build nested dict with info for each good query
+		if goodQueries:
+			goodQueriesDict={}
+			for gQuery in goodQueries:	# for each gRNA
+				queryDict={}			# there is a dictionary
+				for injection in gQuery.inxgRNA.all():
+					inxDict={}
+					# Here we search for file querysets containing a key word in the name
+					inxDict['T7E1gelSet']=injection.gel_set.filter(shortName__icontains='T7E1')
+					inxDict['otherGelSet']=injection.gel_set.exclude(shortName__icontains='T7E1')
+					inxDict['otherImgSet']=injection.miscimg_set.all()
+					inxDict['expInfoSet']=injection.miscfile_set.filter(shortName__icontains='expInfo')
+					inxDict['otherFileSet']=injection.miscfile_set.exclude(shortName__icontains='expInfo')
+					queryDict[injection]=inxDict	# gRNA dict has keys of each injection
+					# The injection object itself is the key we use to get list of injections using this gRNA
+					# This yields the name and date columns of the inx, and links to inxsurvivalexp.
+
+				# To access the nested dict, we use the gRNA object itself as the key
+				goodQueriesDict[gQuery]=queryDict	# bigdict has keys of each query
+
+			goodQueries=goodQueriesDict
+
+		C=Context({
+			'queryString':queryString,
+			'badQueries':badQueries,
+			'goodQueries':goodQueries
+			})
+			# try:
+			# 	this_gRNA=gRNA.objects.get(geneTarget=query)
+			# 	goodQueries.append(this_gRNA)
+			# except DoesNotExist:
+			# 	badQueries.append(query)
+			# except MultipleObjectsReturned:
+
+			# 	goodQueries.append()
+	else:
+		C=Context()
 	return HttpResponse(t.render(C))
