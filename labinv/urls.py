@@ -1,6 +1,7 @@
 from django.conf.urls import patterns,url
 from labinv import views
 
+# To use url tag in template, use something like {% url 'labinv:URLNAME' %}
 urlpatterns = patterns('',
 	url(r'^accounts/login/', 'django.contrib.auth.views.login'),
 	url(r'^$', views.index, name='index'),

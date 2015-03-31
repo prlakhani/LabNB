@@ -2,22 +2,24 @@ from django.conf.urls import patterns,url
 from data import views
 from django.conf import settings
 
+# To use url tag in template, use something like {% url 'data:URLNAME' %}
+
 urlpatterns = patterns('',
 	url(r'^accounts/login/', 'django.contrib.auth.views.login'),
 	url(r'^$', views.index, name='index'),
 	url(r'^inxSurvExp/$', views.inxSurvExpList, name='inxSurvExp-list'),
 	url(r'^inxSurvExp/create$', views.inxSurvExpCreateView.as_view(), name='inxSurvExp-create'),
-	url(r'^inxSurvExp/(?P<pk>\d+)/inxsurvplot.png$', views.inxSurvExpPlot, name='inxSurvExp-Plot'),
+	url(r'^inxSurvExp/(?P<pk>\d+)/inxsurvplot.png$', views.inxSurvExpPlot, name='inxSurvExp-plot'),
 	url(r'^inxSurvExp/(?P<pk>\d+)$', views.inxSurvExpDetail, name='inxSurvExp-detail'),
 	url(r'^inxSurvExp/(?P<pk>\d+)/update$', views.inxSurvExpUpdateView.as_view(), name='inxSurvExp-update'),
 	url(r'^inxSurvExp/(?P<pk>\d+)/delete$', views.inxSurvExpDeleteView.as_view(), name='inxSurvExp-delete'),
 	url(r'^survExp/$', views.survExpList, name='survExp-list'),
 	url(r'^survExp/create$', views.survExpCreateView.as_view(), name='survExp-create'),
-	url(r'^survExp/(?P<pk>\d+)/survplot.png$', views.survExpPlot, name='survExp-Plot'),
+	url(r'^survExp/(?P<pk>\d+)/survplot.png$', views.survExpPlot, name='survExp-plot'),
 	url(r'^survExp/(?P<pk>\d+)$', views.survExpDetail, name='survExp-detail'),
 	url(r'^survExp/(?P<pk>\d+)/update$', views.survExpUpdateView.as_view(), name='survExp-update'),
 	url(r'^survExp/(?P<pk>\d+)/delete$', views.survExpDeleteView.as_view(), name='survExp-delete'),
-	url(r'^uInx/$', views.uInxList, name='uinx-list'),
+	url(r'^uInx/$', views.uInxList, name='uInx-list'),
 	url(r'^uInx/create$', views.uInxCreateView.as_view(), name='uInx-create'),
 	url(r'^uInx/(?P<pk>\d+)$', views.uInxDetail, name='uInx-detail'),
 	url(r'^uInx/(?P<pk>\d+)/update$', views.uInxUpdateView.as_view(), name='uInx-update'),
@@ -42,6 +44,7 @@ urlpatterns = patterns('',
 	url(r'^file/(?P<pk>\d+)$', views.miscFileDetail, name='file-detail'),
 	url(r'^file/(?P<pk>\d+)/update$', views.miscFileUpdateView.as_view(), name='file-update'),
 	url(r'^file/(?P<pk>\d+)/delete$', views.miscFileDeleteView.as_view(), name='file-delete'),
+	url(r'^custom/querydata$',views.queryData,name='querydata'),
 	)
 
 urlpatterns += patterns('', (

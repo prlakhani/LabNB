@@ -18,11 +18,14 @@ urlpatterns = patterns('',
     # url(r'^$', 'LabNB.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     # http://stackoverflow.com/questions/1940528/django-index-page-best-most-common-practice
+
+    # OMG CRAZY NOTE: namespace ABSOLUTELY MUST BE IN DOUBLEQUOTES to work.
+    
     url(r'^$', views.index, name='index'),
     url(r'^accounts/login/', 'django.contrib.auth.views.login'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^labinv/', include('labinv.urls', namespace='labinv')),
-    url(r'^data/', include('data.urls', namespace='data')),
+    url(r'^labinv/', include('labinv.urls', namespace="labinv")),
+    url(r'^data/', include('data.urls', namespace="data")),
     url(r'^apple-touch-icon\.png$', RedirectView.as_view(
         url='%simg/apple-touch-icon.png' % settings.STATIC_URL)),
     url(r'^crossdomain\.xml$', TemplateView.as_view(
