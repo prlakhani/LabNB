@@ -80,6 +80,7 @@ class gel(fileData):
 	exp=models.ForeignKey(Experiment)	# an image should belong to the inx or misc experiment, not to survival, unless needed to show monsters
 	# exp is a fkey and not a manytomany for simplicity. When an image refers to more than one experiment, it should be cropped to refer to only
 	# one, or simply uploaded multiple times, once for each fkey experiment.
+	final=models.BooleanField(default=False)	# note: ONLY to be used for T7E1, or other standardized files
 	key=models.TextField('Key; comma-separated by lane; semicolon separated for multiple rows')	# add "only one semicolon" validator
 	tubes=models.ManyToManyField('labinv.Tube',blank=True,null=True)
 	gelFile=models.ImageField(upload_to='images/gels/')
@@ -101,5 +102,6 @@ class miscImg(fileData):
 
 class miscFile(fileData):
 	exp=models.ForeignKey(Experiment)
+	final=models.BooleanField(default=False)	# note: ONLY to be used for expInfo phenotype, or other standardized files
 	# This is for csvs or mat files pertaining to experiments
 	userFile=models.FileField(upload_to='files/')

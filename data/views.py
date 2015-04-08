@@ -204,6 +204,7 @@ def uInxDetail(request,pk):
 # miscExperiment views #
 ########################
 
+@login_required
 def miscExpList(request):
 	t=loader.get_template('data/miscExpList.html')
 	miscExps=miscExp.objects.all()
@@ -239,6 +240,7 @@ def miscExpDetail(request,pk):
 # gel views #
 #############
 
+@login_required
 def gelList(request):
 	t=loader.get_template('data/gelList.html')
 	gels=gel.objects.all()
@@ -268,6 +270,7 @@ def gelDetail(request,pk):
 # miscImg views #
 #################
 
+@login_required
 def miscImgList(request):
 	t=loader.get_template('data/miscImgList.html')
 	miscImgs=miscImg.objects.all()
@@ -298,6 +301,7 @@ def miscImgDetail(request,pk):
 # miscFile views #
 ##################
 
+@login_required
 def miscFileList(request):
 	t=loader.get_template('data/miscFileList.html')
 	miscFiles=miscFile.objects.all()
@@ -345,8 +349,10 @@ def queryData(request):
 		badQueries=[]	# list of strings that don't match any geneTargets
 		goodQueries=[]	# list of gRNA objects that were matched
 		for query in queries:
-			qset=gRNA.objects.filter(geneTarget=query)	# filter instead of get b/c may have >1
-														# gRNA with same geneTarget
+			qset=gRNA.objects.filter(geneTarget__icontains=query)	# filter instead of get b/c may have >1
+																	# gRNA with same geneTarget
+																	# hopefully icontains will not backfire
+																	# consider changing to iexact
 			if qset:	# if not empty
 				for guide in qset:	
 					goodQueries.append(guide)

@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     # OMG CRAZY NOTE: namespace ABSOLUTELY MUST BE IN DOUBLEQUOTES to work.
     
     url(r'^$', views.index, name='index'),
-    url(r'^accounts/login/', 'django.contrib.auth.views.login'),
+    url(r'accounts/login/', 'django.contrib.auth.views.login'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^labinv/', include('labinv.urls', namespace="labinv")),
     url(r'^data/', include('data.urls', namespace="data")),

@@ -13,7 +13,7 @@ class Tube(PolymorphicModel):
 	# 	ordering=['date']
 	def __str__(self):
 		dateString=datetime.date.strftime(self.date,'%m%d%y')
-		return dateString+'_tube_'+self.shortName
+		return dateString+'_tube'
 
 class gRNA(Tube):
 	geneTarget=models.CharField(max_length=10)
@@ -61,7 +61,9 @@ class strip(Tube):
 class miscTube(Tube):
 	shortName=models.CharField(max_length=50)
 	sequence=models.CharField('Sequence, if applicable (primers)',max_length=200,blank=True,null=True)
-	pass
+	def __str__(self):
+		dateString=datetime.date.strftime(self.date,'%m%d%y')
+		return dateString+'_tube_'+self.shortName
 	# @models.permalink
 	# def get_absolute_url(self):
 	# 	return reverse('labinv.views.miscTube-detail',args=[str(self.id)])
