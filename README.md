@@ -4,10 +4,6 @@ This is my attempt at creating a functional and extensible lab notebook for biom
 
 The hope is that the various elements of this project inspire others to fork and expand upon my work, and I will hopefully be able to learn something from others' improvements. 
 
-This project relies heavily upon the django-polymorphic models for its flexibility, so MAJOR thanks to chrisglass and their project at [django-polymorphic](https://github.com/chrisglass/django_polymorphic). Please let me know of a better way to credit their work, if anyone has a suggestion.
+This project relies heavily upon the django-polymorphic models for its flexibility, so MAJOR thanks to chrisglass and their project at [django-polymorphic](https://github.com/chrisglass/django_polymorphic). Please let me know of a better way to credit their work, if anyone has a suggestion. Similarly, Cam Davidson's [lifelines](https://github.com/CamDavidsonPilon/lifelines) package has been a lifeline. 
 
-**Requirements:**
-
-Django>=1.7  
-django-polymorphic>=0.6.1
-Python>=3
+Sorry about that.
